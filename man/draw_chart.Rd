@@ -27,8 +27,8 @@ draw_chart(
   show_realized = FALSE,
   show_future = FALSE,
   draw_grob = TRUE,
-  replace = FALSE,
-  blend = 1
+  bds_data = "",
+  ind_loc = ""
 )
 }
 \arguments{
@@ -43,22 +43,20 @@ and converted to internal server format.}
 \item{chartcode}{Optional. The code of the requested growth chart.}
 
 \item{selector}{Either \code{"chartcode"}, \code{"data"} or \code{"derive"}.
-The function can calculate the chart code by looking at the child
-data (method \code{"data"}) or user input (method \code{"derive"}).
-More in detail, the following behaviour decides between growth charts:
-  \describe{
-  \item{\code{"data"}}{Calculate chart code from the individual data.
-  This setting chooses the "optimal" chart for a given individual set of data.}
-  \item{\code{"derive"}}{Calculate chart code from a combination of user
-  data: \code{chartgrp}, \code{agegrp}, \code{side}, \code{sex},
-  \code{etn}, \code{ga}. The method does not use individual data. Use
-  this setting when chart choice needs to be reactive on user input.}
-  \item{\code{"chartcode"}}{Take string specified in \code{chartcode}}
-  }
-If there is a valid \code{ind} object, then the function simply obeys
-the \code{selector} setting. If no valid \code{ind} object is found,
-the \code{"chartcode"} argument is taken. However, if the \code{"chartcode"}
-is empty, then the function selects method \code{"derive"}.}
+The function can calculate the chart code by looking at the child data
+(method \code{"data"}) or user input (method \code{"derive"}). More in
+detail, the following behaviour decides between growth charts: \describe{
+\item{\code{"data"}}{Calculate chart code from the individual data. This
+setting chooses the "optimal" chart for a given individual set of data.}
+\item{\code{"derive"}}{Calculate chart code from a combination of user
+data: \code{chartgrp}, \code{agegrp}, \code{side}, \code{sex}, \code{etn},
+\code{ga}. The method does not use individual data. Use this setting when
+chart choice needs to be reactive on user input.}
+\item{\code{"chartcode"}}{Take string specified in \code{chartcode}} } If
+there is a valid \code{ind} object, then the function simply obeys the
+\code{selector} setting. If no valid \code{ind} object is found, the
+\code{"chartcode"} argument is taken. However, if the \code{"chartcode"} is
+empty, then the function selects method \code{"derive"}.}
 
 \item{chartgrp}{The chart group: \code{'nl2010'}, \code{'preterm'}, \code{'who'}
 or \code{character(0)}}
@@ -77,48 +75,52 @@ provides the 0-4 chart with weight for age (design E).}
 \item{side}{Either \code{'front'}, \code{'back'}, \code{'-hdc'} or
 \code{'both'}}
 
-\item{curve_interpolation}{A logical indicating whether curve
-interpolation shoud be applied.}
+\item{curve_interpolation}{A logical indicating whether curve interpolation
+shoud be applied.}
 
-\item{quiet}{Logical indicating whether chart code should be
-written to standard output. Default is \code{quiet = TRUE}.}
+\item{quiet}{Logical indicating whether chart code should be written to
+standard output. Default is \code{quiet = TRUE}.}
 
-\item{dnr}{A string with the name of the donor data
-(currently available are \code{smocc}, \code{terneuzen},
-\code{lollypop.preterm} or \code{lollypop.term})}
+\item{dnr}{A string with the name of the donor data (currently
+available are \code{smocc}, \code{terneuzen}, \code{lollypop.preterm} or
+\code{lollypop.term})}
 
-\item{lo}{Value of the left visit coded as string, e.g. \code{"4w"}
-or \code{"7.5m"}}
+\item{lo}{Value of the left visit coded as string, e.g. \code{"4w"} or
+\code{"7.5m"}}
 
-\item{hi}{Value of the right visit coded as string, e.g. \code{"4w"}
-or \code{"7.5m"}}
+\item{hi}{Value of the right visit coded as string, e.g. \code{"4w"} or
+\code{"7.5m"}}
 
-\item{nmatch}{Integer. Number of matches needed. When
-\code{nmatch == 0L} no matches are sought.}
+\item{nmatch}{Integer. Number of matches needed. When \code{nmatch == 0L}
+no matches are sought.}
 
-\item{exact_sex}{A logical indicating whether sex should be
+\item{exact_sex}{A logical indicating whether sex should be matched exactly}
+
+\item{exact_ga}{A logical indicating whether gestational age should be
 matched exactly}
 
-\item{exact_ga}{A logical indicating whether gestational age
-should be matched exactly}
+\item{break_ties}{A logical indicating whether ties should broken randomly.
+The default (\code{TRUE}) breaks ties randomly.}
 
-\item{break_ties}{A logical indicating whether ties should broken
-randomly. The default (\code{TRUE}) breaks ties randomly.}
+\item{show_realized}{A logical indicating whether the realized growth of the
+target child should be drawn}
 
-\item{show_realized}{A logical indicating whether the realized
-growth of the target child should be drawn}
+\item{show_future}{A logical indicating whether the predicted growth of the
+target child should be drawn}
 
-\item{show_future}{A logical indicating whether the predicted
-growth of the target child should be drawn}
+\item{draw_grob}{Logical. Should chart be plotted on current device? Default
+is \code{TRUE}. For internal use only.}
 
-\item{draw_grob}{Logical. Should chart be plotted on current device?
-Default is \code{TRUE}.}
+\item{bds_data}{Legacy for \code{txt}. Use \code{txt} instead.}
 
-\item{replace}{A logical that indicates whether or not matching should be with
-replacement. The default is \code{FALSE}.}
+\item{ind_loc}{Legacy for \code{loc}. Use \code{loc} instead.}
 
-\item{blend}{A number between 0 and 1, that indicates the blend between
-nearest neighbour matching (\code{0}) and predicitve mean matching}
+\item{replace}{A logical that indicates whether or not matching should be
+with replacement. The default is \code{FALSE}.}
+
+\item{blend}{A numerical value between 0 and 1, that indicates the blend
+between weighted nearest neighbour matching (\code{0}) and predictive mean
+matching (\code{1}). The default is \code{1}.}
 }
 \value{
 A \code{gTree} object.
