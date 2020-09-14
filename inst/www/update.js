@@ -27,14 +27,17 @@ function update() {
   var lo = $("#visitslider").data().from;
   var hi = $("#visitslider").data().to;
   var match = Number($("#matchslider").data().from);
+  var blend_val = Number($("#blendslider").data().from);
   var exact_sex = document.getElementById("exact_sex").checked;
   var exact_ga = document.getElementById("exact_ga").checked;
   var show_future = document.getElementById("show_future").checked;
   var show_realized = document.getElementById("show_realized").checked;
+  var show_replace = document.getElementById("show_replace").checked;
 
   var hi_str = slider_values[[slider_list]][hi];
   var lo_str = slider_values[[slider_list]][lo];
   var nmatch = slider_values[["matches"]][match];
+  var blend = Number(slider_values[[slider_blend]][blend_val]);
 
   // set active UI elements
   if (chartgrp == 'nl2010') {
@@ -192,7 +195,9 @@ function update() {
       exact_sex: exact_sex,
       exact_ga : exact_ga,
       show_future : show_future,
-      show_realized : show_realized
+      show_realized : show_realized,
+      replace : show_replace,
+      blend : blend
     }, function(session) {
 
     });

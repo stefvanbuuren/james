@@ -28,6 +28,10 @@
 #'   or \code{"7.5m"}
 #' @param draw_grob Logical. Should chart be plotted on current device?
 #' Default is \code{TRUE}.
+#'@param replace A logical that indicates whether or not matching should be with
+#'  replacement. The default is \code{FALSE}.
+#'@param blend A number between 0 and 1, that indicates the blend between
+#'  nearest neighbour matching (\code{0}) and predicitve mean matching
 #' @return A \code{gTree} object.
 #' @author Stef van Buuren 2020
 #' @seealso \linkS4class{individual}, \code{\link{select_chart}}
@@ -58,7 +62,9 @@ draw_chart <- function(txt  = "",
                        break_ties = FALSE,
                        show_realized = FALSE,
                        show_future = FALSE,
-                       draw_grob = TRUE) {
+                       draw_grob = TRUE,
+                       replace = FALSE,
+                       blend = 1) {
   selector <- match.arg(selector)
   dnr <- match.arg(dnr)
 
@@ -104,7 +110,9 @@ draw_chart <- function(txt  = "",
                      exact_ga = exact_ga,
                      break_ties = break_ties,
                      show_realized = show_realized,
-                     show_future = show_future)
+                     show_future = show_future,
+                     replace = replace,
+                     blend = blend)
   if (draw_grob) grid.draw(g)
   invisible(g)
 }

@@ -8,11 +8,15 @@ const user_chartcode = urlParams.get('chartcode');
 
 // internal constants
 const slider_values = {"0_2":  ["0w","4w","8w","3m","4m","6m","7.5m","9m","11m","14m","18m","24m"], "0_4":  ["0w","4w","8w","3m","4m","6m","7.5m","9m","11m","14m","18m","24m","36m","45m"], "0_19": ["0w","3m","6m","12m","24m","5y","9y","10y","11y","14y","19y"], "0_29": ["0w","3m","6m","14m","24m","48m","10y","18y"],
-  "matches": ["0", "1", "2", "5", "10", "25", "50", "100"]};
+  "matches": ["0", "1", "2", "5", "10", "25", "50", "100"],
+  "blend_replace": ["0", "0.25", "0.5", "0.75", "1"],
+  "blend_norep": ["0", "1"]
+};
 
 // starting defaults
 var slider_list = "0_2";
 var chartcode = "NJAH";
+var slider_blend = "blend_norep";
 
 // Set donordata entry
 document.getElementById("donordata").value = "smocc";
@@ -47,6 +51,16 @@ $("#visitslider").ionRangeSlider({
   min_interval: 0,
   drag_interval: true,
   values: slider_values[[slider_list]],
+  onFinish: function (data) {
+            update();
+  }
+});
+$("#blendslider").ionRangeSlider({
+  type: "single",
+  skin: "round",
+  grid_snap: true,
+  from: 1,
+  values: slider_values[slider_blend],
   onFinish: function (data) {
             update();
   }
@@ -269,6 +283,22 @@ function update_donordata() {
 
   update();
 }
+
+function setBlend() {
+  var blendbool = document.getElementById("show_replace").checked;
+  if (blendbool) {
+    slider_blend = "blend_replace";
+  } else {
+    slider_blend = "blend_norep";
+  }
+  var values = slider_values[[slider_blend]];
+  var slider_instance = $("#blendslider").data("ionRangeSlider");
+  slider_instance.update({
+      values: values});
+
+  update();
+}
+
 
 function showTextdiv() {
   $("#plotdiv").hide(500);

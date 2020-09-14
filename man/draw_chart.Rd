@@ -26,7 +26,9 @@ draw_chart(
   break_ties = FALSE,
   show_realized = FALSE,
   show_future = FALSE,
-  draw_grob = TRUE
+  draw_grob = TRUE,
+  replace = FALSE,
+  blend = 1
 )
 }
 \arguments{
@@ -111,6 +113,12 @@ growth of the target child should be drawn}
 
 \item{draw_grob}{Logical. Should chart be plotted on current device?
 Default is \code{TRUE}.}
+
+\item{replace}{A logical that indicates whether or not matching should be with
+replacement. The default is \code{FALSE}.}
+
+\item{blend}{A number between 0 and 1, that indicates the blend between
+nearest neighbour matching (\code{0}) and predicitve mean matching}
 }
 \value{
 A \code{gTree} object.
